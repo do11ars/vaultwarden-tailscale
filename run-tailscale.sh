@@ -16,6 +16,7 @@ echo "Tailscale is up at IP ${tailscale_ip}"
 # 3. JALANKAN VAULTWARDEN
 # Di image asli vaultwarden, script utamanya ada di /start.sh
 echo "Starting Vaultwarden..."
+cd /
 /vaultwarden &
 VAULT_PID=$!
 
