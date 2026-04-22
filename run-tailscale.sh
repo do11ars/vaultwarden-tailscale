@@ -14,6 +14,11 @@ tailscale_ip=$(/render/tailscale ip -4)
 echo "Tailscale is up at IP ${tailscale_ip}"
 export ALL_PROXY=socks5://localhost:1055/
 export all_proxy=socks5://localhost:1055/
+
+# Tambahkan ini sebelum /vaultwarden untuk cek koneksi
+echo "Mengetes koneksi ke Postgres..."
+nc -zv 100.75.146.49 5432
+
 # 3. JALANKAN VAULTWARDEN
 # Di image asli vaultwarden, script utamanya ada di /start.sh
 echo "Starting Vaultwarden..."
