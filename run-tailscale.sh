@@ -21,6 +21,7 @@ echo "Bridge database aktif di localhost:5432 via Socat"
 # 4. Jalankan Vaultwarden secara normal
 # PENTING: DATABASE_URL di Render harus: postgresql://user:pass@127.0.0.1:5432/dbname
 export ROCKET_ADDRESS=0.0.0.0
+cd /
 /vaultwarden &
 VAULT_PID=$!
 
