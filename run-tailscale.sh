@@ -14,6 +14,7 @@ done
 echo "Tailscale is up."
 
 # 3. Konfigurasi ProxyChains (Lokasi default Alpine: /etc/proxychains.conf)
+mkdir -p /etc/proxychains
 cat <<EOF > /etc/proxychains/proxychains.conf
 strict_chain
 proxy_dns 
@@ -24,8 +25,8 @@ tcp_connect_time_out 8000
 socks5  127.0.0.1 1055
 EOF
 
-# 4. Tes koneksi via proxychains4 (binary di alpine tetap proxychains4)
-echo "Mengetes koneksi ke Postgres via ProxyChains..."
+# 4. Tes koneksi
+echo "Mengetes koneksi ke Postgres..."
 proxychains4 nc -zv 100.75.146.49 5432
 
 # 5. JALANKAN VAULTWARDEN
