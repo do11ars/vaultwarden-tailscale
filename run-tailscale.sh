@@ -11,21 +11,17 @@ until /render/tailscale up --authkey="${TAILSCALE_AUTHKEY}" --hostname="${RENDER
 done
 echo "Tailscale is up."
 
-# 3. BUAT TUNNEL SPESIFIK UNTUK DATABASE (Alternatif ProxyChains)
-# Ini akan memetakan localhost:5432 di dalam container ke 100.75.146.49:5432 di Tailscale
-# Lewat SOCKS5 Tailscale (1055)
-gost -L tcp://:5432/100.75.146.49:5432 -F socks5://127.0.0.1:1055 &
-GOST_PID=$!
+# 3. BRIDGE PORT DATABASE (Tanpa ProxyChains/Gost)
+# Socat akan mendengarkan di port 5432 dan meneruskannya ke Tailscale SOCKS5
+socat TCP4-LISTEN:5432,fork,reuseaddr SOCKS4A:127.0.0.1:100.75.146.49:5432,socksport=1055 &
+SOCAT_PID=$!
 
-# 4. Tunggu sebentar agar tunnel siap
-sleep 2
-echo "Tunnel database siap di localhost:5432"
+echo "Bridge database aktif di localhost:5432 via Socat"
 
-# 5. Jalankan Vaultwarden
-# PENTING: Ubah DATABASE_URL Anda di Render menjadi:
-# postgresql://user:password@localhost:5432/dbname
+# 4. Jalankan Vaultwarden secara normal
+# PENTING: DATABASE_URL di Render harus: postgresql://user:pass@127.0.0.1:5432/dbname
 export ROCKET_ADDRESS=0.0.0.0
 /vaultwarden &
 VAULT_PID=$!
 
-wait -n ${TAILSCALED_PID} ${GOST_PID} ${VAULT_PID}
+wait -n ${TAILSCALED_PID} ${SOCAT_PID} ${VAULT_PID}
