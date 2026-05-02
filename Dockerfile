@@ -9,5 +9,6 @@ ENV TAILSCALE_VERSION=$TAILSCALE_VERSION
 COPY run-tailscale.sh /render/
 COPY install-tailscale.sh /tmp
 RUN chmod +x /tmp/install-tailscale.sh && /tmp/install-tailscale.sh && rm -rf /tmp/*
+RUN chmod +x /render/run-tailscale.sh
 
 CMD ["./run-tailscale.sh"]
