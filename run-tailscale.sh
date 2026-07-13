@@ -10,8 +10,13 @@ done
 tailscale_ip=$(/render/tailscale ip)
 echo "Tailscale is up at IP ${tailscale_ip}"
 
+while true; do
+  socat TCP4-LISTEN:5432,fork,reuseaddr SOCKS5:127.0.0.1:1055:100.66.66.66:5432
+  sleep 1
+done &
+
 cd /
-ALL_PROXY=socks5://localhost:1055/ /start.sh &
+/vaultwarden &
 VAULT_PID=$!
 
 wait ${PID} ${VAULT_PID}
