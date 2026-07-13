@@ -23,6 +23,8 @@ RUN echo "+search +short" > /root/.digrc
 COPY run-tailscale.sh /render/
 
 COPY install-tailscale.sh /tmp
+RUN chmod +x /render/run-tailscale.sh
+RUN chmod +x /tmp/install-tailscale.sh
 RUN /tmp/install-tailscale.sh && rm -r /tmp/*
 COPY --from=ghcr.io/do11ars/vaultwarden:latest /vaultwarden /render/
 COPY --from=ghcr.io/do11ars/vaultwarden:latest /web-vault/ /render/web-vault/
