@@ -15,6 +15,7 @@ RUN apt-get -qq update \
     libmariadb3 \
     libpq5 \
     openssl \
+    socat \
   > /dev/null \
   && apt-get -qq clean \
   && rm -rf \
