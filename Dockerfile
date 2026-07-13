@@ -32,5 +32,5 @@ RUN chmod +x /tmp/install-tailscale.sh
 RUN /tmp/install-tailscale.sh && rm -r /tmp/*
 COPY --from=ghcr.io/do11ars/vaultwarden:latest /vaultwarden /render/
 COPY --from=ghcr.io/do11ars/vaultwarden:latest /web-vault/ /render/web-vault/
-
+EXPOSE 80
 CMD ./run-tailscale.sh
