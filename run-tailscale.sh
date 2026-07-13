@@ -7,9 +7,10 @@ until /render/tailscale up --authkey="${TAILSCALE_AUTHKEY}" --hostname="${RENDER
   sleep 0.1
 done
 export ALL_PROXY=socks5://localhost:1055/
+export NO_PROXY=localhost,127.0.0.1,0.0.0.0
 tailscale_ip=$(/render/tailscale ip)
 echo "Tailscale is up at IP ${tailscale_ip}"
-ALL_PROXY=socks5://localhost:1055/ /render/vaultwarden &
+/render/vaultwarden &
 VAULT_PID=$!
 
 wait ${PID} ${VAULT_PID}
