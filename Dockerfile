@@ -24,7 +24,7 @@ COPY run-tailscale.sh /render/
 
 COPY install-tailscale.sh /tmp
 RUN /tmp/install-tailscale.sh && rm -r /tmp/*
-COPY --from=ghcr.io/do11ars/vaultwarden:latest /vaultwarden /
-COPY --from=ghcr.io/do11ars/vaultwarden:latest /web-vault/ /web-vault/
+COPY --from=ghcr.io/do11ars/vaultwarden:latest /vaultwarden /render/
+COPY --from=ghcr.io/do11ars/vaultwarden:latest /web-vault/ /render/web-vault/
 
 CMD ./run-tailscale.sh
