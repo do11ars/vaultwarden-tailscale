@@ -9,6 +9,8 @@ done
 
 tailscale_ip=$(/render/tailscale ip)
 echo "Tailscale is up at IP ${tailscale_ip}"
+
+cd /
 ALL_PROXY=socks5://localhost:1055/ HTTP_PROXY=http://localhost:1055/ http_proxy=http://localhost:1055/ /render/vaultwarden &
 VAULT_PID=$!
 
