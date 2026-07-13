@@ -11,7 +11,7 @@ tailscale_ip=$(/render/tailscale ip)
 echo "Tailscale is up at IP ${tailscale_ip}"
 
 cd /
-/vaultwarden &
+/start.sh &
 VAULT_PID=$!
 
 wait ${PID} ${VAULT_PID}
