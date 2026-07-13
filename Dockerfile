@@ -1,4 +1,4 @@
-FROM debian-slim:latest
+FROM debian:trixie-slim
 WORKDIR /render
 
 ARG TAILSCALE_VERSION
