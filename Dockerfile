@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian-slim:latest
 WORKDIR /render
 
 ARG TAILSCALE_VERSION
@@ -11,6 +11,10 @@ RUN apt-get -qq update \
     netcat-openbsd \
     wget \
     dnsutils \
+    curl \
+    libmariadb3 \
+    libpq5 \
+    openssl \
   > /dev/null \
   && apt-get -qq clean \
   && rm -rf \
