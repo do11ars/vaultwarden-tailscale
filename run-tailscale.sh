@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-/render/tailscaled --tun=userspace-networking --socks5-server=localhost:1055 &
+/render/tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --disable-peer-api &
 PID=$!
 
 until /render/tailscale up --authkey="${TAILSCALE_AUTHKEY}" --hostname="${RENDER_SERVICE_NAME}"; do
