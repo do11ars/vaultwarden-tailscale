@@ -9,7 +9,7 @@ done
 export ALL_PROXY=socks5://localhost:1055/
 tailscale_ip=$(/render/tailscale ip)
 echo "Tailscale is up at IP ${tailscale_ip}"
-/render/vaultwarden &
+ALL_PROXY=socks5://localhost:1055/ /render/vaultwarden &
 VAULT_PID=$!
 
 wait ${PID} ${VAULT_PID}
